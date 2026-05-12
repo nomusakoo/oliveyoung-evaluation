@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>올리브영 글로벌 진출 타당성 전문가 평가표</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f5f3;
+    --bg-tertiary: #eeede9;
+    --text-primary: #1a1a18;
+    --text-secondary: #6b6b67;
+    --text-muted: #9b9b96;
+    --border: rgba(0,0,0,0.12);
+    --border-strong: rgba(0,0,0,0.22);
+    --blue-bg: #E6F1FB; --blue-mid: #378ADD; --blue-dark: #185FA5; --blue-text: #0C447C;
+    --green-bg: #EAF3DE; --green-mid: #639922; --green-dark: #3B6D11; --green-text: #27500A;
+    --amber-bg: #FAEEDA; --amber-mid: #BA7517; --amber-dark: #854F0B; --amber-text: #633806;
+    --pink-bg: #FBEAF0; --pink-mid: #D4537E; --pink-dark: #993556; --pink-text: #72243E;
+    --red-bg: #FCEBEB; --red-mid: #E24B4A; --red-text: #A32D2D;
+    --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg-secondary: #252523; --bg-tertiary: #2e2e2b;
+      --text-primary: #f0ede6; --text-secondary: #a0a09a; --text-muted: #6a6a65;
+      --border: rgba(255,255,255,0.1); --border-strong: rgba(255,255,255,0.2);
+      --blue-bg: #042C53; --blue-mid: #378ADD; --blue-text: #85B7EB;
+      --green-bg: #173404; --green-mid: #639922; --green-text: #C0DD97;
+      --amber-bg: #412402; --amber-mid: #BA7517; --amber-text: #FAC775;
+      --pink-bg: #4B1528; --pink-mid: #D4537E; --pink-text: #F4C0D1;
+      --red-bg: #501313; --red-mid: #E24B4A; --red-text: #F7C1C1;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 20px 32px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .page-header h1 { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+  .page-header p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .header-scores { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hscore { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 6px 12px; text-align: center; }
+  .hscore .hl { font-size: 10px; color: var(--text-muted); }
+  .hscore .hv { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .hscore.total { background: var(--blue-bg); }
+  .hscore.total .hl { color: var(--blue-text); }
+  .hscore.total .hv { color: var(--blue-text); }
+
+  /* ── Main layout ── */
+  .page-body { max-width: 1200px; margin: 0 auto; padding: 24px 24px 60px; }
+
+  /* ── Scenario tabs ── */
+  .scenario-tabs { display: flex; gap: 0; border-bottom: 0.5px solid var(--border); margin-bottom: 0; background: var(--bg); border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
+  .stab { flex: 1; text-align: center; font-size: 13px; padding: 12px 8px; cursor: pointer; color: var(--text-secondary); border-bottom: 2px solid transparent; user-select: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+  .stab:hover { color: var(--text-primary); background: var(--bg-secondary); }
+  .stab.active { color: var(--text-primary); font-weight: 600; border-bottom: 2px solid var(--text-primary); }
+
+  .scenario-desc { background: var(--bg); border-left: 3px solid var(--border-strong); padding: 12px 16px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .scenario-desc strong { font-weight: 600; color: var(--text-primary); }
+
+  /* ── Legend ── */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 10px 0 14px; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+  .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Table ── */
+  .tbl-wrap { overflow-x: auto; background: var(--bg); border-radius: 0 0 var(--radius-lg) var(--radius-lg); border: 0.5px solid var(--border); margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 760px; }
+  th { font-size: 11px; font-weight: 600; padding: 10px 10px; text-align: center; border: 0.5px solid var(--border); line-height: 1.4; }
+  th.left { text-align: left; }
+  th.col-strat { color: var(--blue-text); background: var(--blue-bg); }
+  th.col-fin   { color: var(--green-text); background: var(--green-bg); }
+  th.col-mkt   { color: var(--amber-text); background: var(--amber-bg); }
+  th.col-eth   { color: var(--pink-text); background: var(--pink-bg); }
+  th.hdr-main  { background: var(--bg-secondary); color: var(--text-secondary); }
+
+  td { border: 0.5px solid var(--border); vertical-align: top; }
+  td.crit-cell { padding: 12px 10px; min-width: 130px; background: var(--bg-secondary); }
+  .crit-name { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: var(--text-primary); }
+  .crit-theory { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 3px; background: var(--bg); border: 0.5px solid var(--border); color: var(--text-muted); }
+
+  td.rubric-cell { padding: 0; min-width: 160px; }
+  .rubric-inner { padding: 8px; }
+  .scale-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+  .scale-item { display: flex; align-items: flex-start; gap: 7px; cursor: pointer; padding: 5px 7px; border-radius: var(--radius-sm); border: 0.5px solid transparent; transition: background 0.1s; }
+  .scale-item:hover { background: var(--bg-secondary); }
+  .scale-item.sel-9 { background: var(--blue-bg); border-color: var(--blue-mid); }
+  .scale-item.sel-7 { background: var(--green-bg); border-color: var(--green-mid); }
+  .scale-item.sel-5 { background: var(--amber-bg); border-color: var(--amber-mid); }
+  .scale-item.sel-3 { background: var(--red-bg); border-color: var(--red-mid); }
+  .scale-radio { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid var(--border-strong); flex-shrink: 0; margin-top: 2px; position: relative; background: var(--bg); transition: all 0.12s; }
+  .scale-radio::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: #fff; display: none; }
+  .scale-item.sel-9 .scale-radio { border-color: var(--blue-mid); background: var(--blue-mid); }
+  .scale-item.sel-7 .scale-radio { border-color: var(--green-mid); background: var(--green-mid); }
+  .scale-item.sel-5 .scale-radio { border-color: var(--amber-mid); background: var(--amber-mid); }
+  .scale-item.sel-3 .scale-radio { border-color: var(--red-mid); background: var(--red-mid); }
+  .scale-item.sel-9 .scale-radio::after,
+  .scale-item.sel-7 .scale-radio::after,
+  .scale-item.sel-5 .scale-radio::after,
+  .scale-item.sel-3 .scale-radio::after { display: block; }
+  .scale-label { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+  .scale-score { font-size: 10px; font-weight: 600; color: var(--text-muted); margin-top: 1px; }
+  .score-display { font-size: 12px; font-weight: 600; color: var(--text-muted); text-align: right; min-height: 16px; }
+
+  td.row-sum-cell { text-align: center; font-weight: 600; font-size: 13px; min-width: 62px; background: var(--bg-secondary); padding: 10px 6px; vertical-align: middle; }
+
+  tr.note-row td { background: var(--bg-secondary); padding: 8px 10px; }
+  .note-label { font-size: 10px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  textarea.note { width: 100%; border: 0.5px solid var(--border-strong); border-radius: var(--radius-md); padding: 7px 9px; font-size: 12px; font-family: inherit; color: var(--text-primary); background: var(--bg); resize: vertical; min-height: 52px; }
+  textarea.note:focus { outline: none; box-shadow: 0 0 0 2px var(--blue-mid); }
+
+  tr.sum-row td { background: var(--bg-secondary); font-weight: 600; font-size: 13px; text-align: center; padding: 10px; border: 0.5px solid var(--border); }
+  tr.sum-row td.left { text-align: left; font-size: 12px; color: var(--text-secondary); font-weight: 400; }
+  .sum-strat { color: var(--blue-text); }
+  .sum-fin   { color: var(--green-text); }
+  .sum-mkt   { color: var(--amber-text); }
+  .sum-eth   { color: var(--pink-text); }
+
+  /* ── Verdict panel ── */
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+  .verdict-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  @media (max-width: 600px) { .verdict-panel { grid-template-columns: 1fr; } }
+  .v-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; background: var(--bg); transition: border-color 0.2s; }
+  .v-card.highlight { border: 2px solid var(--blue-mid); background: var(--blue-bg); }
+  .v-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .v-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .v-score { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+  .v-max { font-size: 12px; color: var(--text-muted); }
+  .v-bar-bg { background: var(--bg-secondary); border-radius: 4px; height: 6px; margin-top: 10px; overflow: hidden; }
+  .v-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+  .rec-badge { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 3px; margin-top: 8px; background: var(--blue-bg); color: var(--blue-text); border: 0.5px solid var(--blue-mid); font-weight: 600; }
+
+  /* ── Buttons ── */
+  .footer { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { border: 0.5px solid var(--border-strong); background: var(--bg); color: var(--text-primary); padding: 8px 16px; border-radius: var(--radius-md); font-size: 13px; font-family: inherit; cursor: pointer; transition: background 0.15s; }
+  .btn:hover { background: var(--bg-secondary); }
+  .btn-primary { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* ── Print ── */
+  @media print {
+    .page-header { position: static; }
+    .footer, .btn { display: none; }
+    .tbl-wrap { overflow: visible; }
+    table { min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div>
+    <h1>올리브영 글로벌 진출 타당성 전문가 평가표</h1>
+    <p>3개 시나리오 × 7개 공통 기준 × 4개 관점 — 평가척도 선택 방식</p>
+  </div>
+  <div class="header-scores">
+    <div class="hscore"><div class="hl">시나리오 A</div><div class="hv" id="hs-usa">—</div></div>
+    <div class="hscore"><div class="hl">시나리오 B</div><div class="hv" id="hs-sea">—</div></div>
+    <div class="hscore"><div class="hl">시나리오 C</div><div class="hv" id="hs-phased">—</div></div>
+    <div class="hscore total"><div class="hl">현재 시나리오</div><div class="hv" id="hs-current">—</div></div>
+  </div>
+</header>
+
+<main class="page-body">
+
+  <!-- Scenario tabs -->
+  <div class="scenario-tabs">
+    <div class="stab active" onclick="switchScenario('usa')">🇺🇸 시나리오 A — 미국 직진출</div>
+    <div class="stab" onclick="switchScenario('sea')">🌏 시나리오 B — 동남아 우선</div>
+    <div class="stab" onclick="switchScenario('phased')">🔄 시나리오 C — 단계적 진출</div>
+  </div>
+  <div id="desc-usa" class="scenario-desc"><strong>미국 직진출</strong> — K-뷰티 열풍이 형성된 북미 시장에 올리브영 브랜드로 직접 진입. 왓슨스·세포라 등 경쟁 편집숍이 확립된 시장에서 K-뷰티 큐레이터 포지셔닝으로 차별화. 높은 진입 비용·브랜드 인지도 부재가 주요 리스크.</div>
+  <div id="desc-sea" class="scenario-desc" style="display:none"><strong>동남아 우선 진출</strong> — 태국·베트남·인도네시아 등 K-뷰티 선호도 높고 올리브영 인지도가 상대적으로 있는 동남아를 교두보로 삼아 글로벌 운영 역량을 축적 후 미국 진출. 낮은 진입 장벽이나 현지 편집숍 경쟁 심화가 변수.</div>
+  <div id="desc-phased" class="scenario-desc" style="display:none"><strong>단계적 진출 (동남아 → 미국)</strong> — 동남아에서 글로벌 운영 모델을 검증한 후 미국에 진출하는 2단계 전략. 리스크를 분산하되 미국 진출 시점이 늦어지는 기회비용이 존재.</div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#378ADD"></div>9–10점: 매우 우수</div>
+    <div class="leg"><div class="leg-dot" style="background:#639922"></div>7–8점: 우수</div>
+    <div class="leg"><div class="leg-dot" style="background:#BA7517"></div>5–6점: 보통</div>
+    <div class="leg"><div class="leg-dot" style="background:#E24B4A"></div>1–4점: 미흡</div>
+  </div>
+
+  <!-- Table -->
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="left hdr-main" style="width:13%">평가 기준<br><span style="font-weight:400;font-size:10px;color:var(--text-muted)">적용 이론</span></th>
+          <th class="col-strat" style="width:20%">전략관점<br><span style="font-weight:400;font-size:10px">OLI · RBV · SWOT</span></th>
+          <th class="col-fin"   style="width:20%">재무관점<br><span style="font-weight:400;font-size:10px">ROI · 리스크 · BEP</span></th>
+          <th class="col-mkt"  style="width:20%">마케팅관점<br><span style="font-weight:400;font-size:10px">STP · PLC · 채널</span></th>
+          <th class="col-eth"  style="width:20%">윤리관점<br><span style="font-weight:400;font-size:10px">ESG · 컴플라이언스</span></th>
+          <th class="hdr-main" style="width:7%">합계</th>
+        </tr>
+      </thead>
+      <tbody id="tbl-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Verdict -->
+  <div class="section-title">시나리오 비교</div>
+  <div class="verdict-panel">
+    <div class="v-card" id="vc-usa">
+      <div class="v-label">시나리오 A</div>
+      <div class="v-name">🇺🇸 미국 직진출</div>
+      <div><span class="v-score" id="vs-usa">—</span><span class="v-max"> / 280</span></div>
+      <div class="v-bar-bg"><div class="v-bar-fill" id="vb-usa" style="width:0%;background:#378ADD"></div></div>
+      <div id="vbadge-usa"></div>
+    </div>
+    <div class="v-card" id="vc-sea">
+      <div class="v-label">시나리오 B</div>
+      <div class="v-name">🌏 동남아 우선</div>
+      <div><span class="v-score" id="vs-sea">—</span><span class="v-max"> / 280</span></div>
+      <div class="v-bar-bg"><div class="v-bar-fill" id="vb-sea" style="width:0%;background:#639922"></div></div>
+      <div id="vbadge-sea"></div>
+    </div>
+    <div class="v-card" id="vc-phased">
+      <div class="v-label">시나리오 C</div>
+      <div class="v-name">🔄 단계적 진출</div>
+      <div><span class="v-score" id="vs-phased">—</span><span class="v-max"> / 280</span></div>
+      <div class="v-bar-bg"><div class="v-bar-fill" id="vb-phased" style="width:0%;background:#BA7517"></div></div>
+      <div id="vbadge-phased"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <button class="btn" onclick="resetCurrent()">↺ 현재 시나리오 초기화</button>
+    <button class="btn" onclick="resetAll()">전체 초기화</button>
+    <button class="btn" onclick="printPage()">🖨 인쇄 / PDF 저장</button>
+    <button class="btn btn-primary" onclick="copyLink()">🔗 링크 복사</button>
+  </div>
+
+</main>
+
+<script>
+const COLS = ['strat','fin','mkt','eth'];
+const scenarios = ['usa','sea','phased'];
+const colNames = {strat:'전략관점',fin:'재무관점',mkt:'마케팅관점',eth:'윤리관점'};
+const scenarioNames = {usa:'미국 직진출',sea:'동남아 우선',phased:'단계적 진출'};
+
+const criteria = [
+  {
+    name:'시장 매력도', theory:'PEST · OLI-L',
+    rubric:{
+      strat:[
+        {score:9,label:'진출 시장이 PEST 전 요소에서 유리, K-뷰티 트렌드 형성 명확'},
+        {score:7,label:'대부분 유리하나 일부 PEST 요인(규제·정치) 불확실성 존재'},
+        {score:5,label:'시장 규모는 크나 K-뷰티 수용도 낮거나 경쟁 포화 우려'},
+        {score:3,label:'시장 성장성 낮거나 진입 장벽 과도해 전략적 타당성 미흡'},
+      ],
+      fin:[
+        {score:9,label:'시장 규모·구매력 대비 초기 투자비 회수 기간 3년 이내 예상'},
+        {score:7,label:'BEP 도달 3~5년, 수익성은 확보되나 초기 부담 존재'},
+        {score:5,label:'BEP 5년 초과 또는 수익성 불확실, 추가 자본 필요 가능성'},
+        {score:3,label:'시장 규모 대비 투자 비용 과다, 수익 창출 근거 불분명'},
+      ],
+      mkt:[
+        {score:9,label:'MZ 타겟 K-뷰티 수요 강하고 디지털 채널 접근성 우수'},
+        {score:7,label:'K-뷰티 관심 높으나 올리브영 브랜드 인지도 낮아 투자 필요'},
+        {score:5,label:'K-뷰티 관심층 한정적, 대중화 전략 없이 틈새시장에 그칠 우려'},
+        {score:3,label:'K-뷰티 수요 미형성, 현지화 비용 대비 시장 반응 기대 어려움'},
+      ],
+      eth:[
+        {score:9,label:'현지 소비자보호·화장품 규제 환경 우호적, ESG 기준 충족 용이'},
+        {score:7,label:'규제 준수 가능하나 일부 성분·인증 기준 추가 대응 필요'},
+        {score:5,label:'규제 복잡도 높아 컴플라이언스 비용·시간 상당 소요 예상'},
+        {score:3,label:'현지 규제 리스크 크거나 ESG 기준 충족에 구조적 제약 존재'},
+      ],
+    }
+  },
+  {
+    name:'경쟁 우위 유지 가능성', theory:'RBV · VRIO · OLI-O',
+    rubric:{
+      strat:[
+        {score:9,label:'K-뷰티 큐레이션 역량이 VRIO 4요건 충족, 현지 경쟁자 대비 모방 불가'},
+        {score:7,label:'차별성 있으나 왓슨스·세포라 등이 빠르게 K-뷰티 라인 강화 중'},
+        {score:5,label:'단기 차별화 가능하나 현지 편집숍의 추격 속도 빠름'},
+        {score:3,label:'현지 선도 기업이 이미 K-뷰티 포지션 선점, 차별화 어려움'},
+      ],
+      fin:[
+        {score:9,label:'고마진 PB·독점 브랜드 비중 높아 수익성 방어 가능'},
+        {score:7,label:'초기 가격 경쟁 불가피하나 브랜드 포트폴리오로 수익성 회복 가능'},
+        {score:5,label:'경쟁 심화로 마진 압박, 지속적 마케팅 비용 투입 필요'},
+        {score:3,label:'가격 경쟁력·수익성 동시 확보 어려워 재무 지속가능성 의문'},
+      ],
+      mkt:[
+        {score:9,label:'올리브영 앱·멤버십 생태계가 현지에서도 락인 효과 창출 가능'},
+        {score:7,label:'브랜드 스토리·K-뷰티 전문성으로 포지셔닝 가능하나 인지도 구축 기간 필요'},
+        {score:5,label:'현지 브랜드와 차별화 포인트 약하거나 마케팅 메시지 전달 어려움'},
+        {score:3,label:'현지 경쟁자 대비 브랜드 인지도·채널 열세, 차별화 전략 부재'},
+      ],
+      eth:[
+        {score:9,label:'공정거래·상생 철학이 현지 파트너·브랜드와 신뢰 구축에 유리'},
+        {score:7,label:'국내 공정거래 이슈 재발 방지 체계 갖추면 현지 신뢰 확보 가능'},
+        {score:5,label:'입점 브랜드 관리·갑을 관계 논란 재현 가능성, 사전 정책 정비 필요'},
+        {score:3,label:'현지 공정거래 규정 충족 불확실, 브랜드 이해관계자 신뢰 저해 우려'},
+      ],
+    }
+  },
+  {
+    name:'진입방식 적합성', theory:'OLI-I · FDI · PLC',
+    rubric:{
+      strat:[
+        {score:9,label:'FDI/직영 방식이 내부화 우위 극대화, 현지 파트너 의존 리스크 최소화'},
+        {score:7,label:'파트너십·JV 방식으로 현지 네트워크 활용, 통제권 일부 양보 감수'},
+        {score:5,label:'이커머스 우선 진입은 가능하나 브랜드 체험 전달에 한계'},
+        {score:3,label:'적합한 진입방식 불명확, 복수 방식 시도 시 자원 분산 우려'},
+      ],
+      fin:[
+        {score:9,label:'진입방식별 초기 투자 규모가 예상 수익과 균형, 자본 효율성 우수'},
+        {score:7,label:'투자 규모 적정하나 환율·현지 임차료 변동 리스크 헤징 필요'},
+        {score:5,label:'직영 진입 시 고정비 부담 과중, 이커머스 전환 시 수익성 낮음'},
+        {score:3,label:'어떤 진입방식도 초기 비용 대비 수익 구조 불명확'},
+      ],
+      mkt:[
+        {score:9,label:'오프라인 체험 + 이커머스 연계 O2O 전략이 현지 소비 패턴에 최적'},
+        {score:7,label:'이커머스 우선 진입 후 오프라인 확장 로드맵 수립 가능'},
+        {score:5,label:'오프라인 단독 또는 이커머스 단독으로 채널 시너지 제한'},
+        {score:3,label:'현지 소비자 접점 확보 전략 불명확, 채널 믹스 설계 미흡'},
+      ],
+      eth:[
+        {score:9,label:'직영 구조로 본사 윤리 기준을 현지에 일관 적용, 거버넌스 통제 용이'},
+        {score:7,label:'파트너십 구조에서도 윤리 가이드라인·감사 체계 설계 가능'},
+        {score:5,label:'현지 파트너 의존도 높아 윤리 기준 일관성 유지에 추가 관리 필요'},
+        {score:3,label:'진입방식상 본사 통제 구조 불명확, 현지 법인 윤리 리스크 노출'},
+      ],
+    }
+  },
+  {
+    name:'투자 수익성', theory:'ROI · BEP · 재무비율',
+    rubric:{
+      strat:[
+        {score:9,label:'글로벌 포트폴리오 관점에서 해당 시장이 장기 성장 거점으로 전략적 가치 명확'},
+        {score:7,label:'전략적 교두보 가치 있으나 단기 수익 창출보다 시장 학습에 의미'},
+        {score:5,label:'수익성보다 상징적 의미(글로벌 브랜드 인지)에 치우칠 우려'},
+        {score:3,label:'전략적 가치 불분명, 투자 정당성 확보 어려움'},
+      ],
+      fin:[
+        {score:9,label:'3년 내 BEP 달성, 5년 누적 ROI 15% 이상 기대 가능'},
+        {score:7,label:'BEP 3~5년, ROI 5~15% 수준, 수익성 확보 가능하나 장기 투자 필요'},
+        {score:5,label:'BEP 5년 초과, ROI 5% 미만 또는 불확실, 추가 자본 조달 가능성'},
+        {score:3,label:'수익 모델 불명확, 투자 회수 근거 부족, 재무 지속가능성 낮음'},
+      ],
+      mkt:[
+        {score:9,label:'고객획득비용(CAC) 대비 생애가치(LTV) 우수, 디지털 채널 ROI 높음'},
+        {score:7,label:'초기 CAC 높으나 재구매율·브랜드 충성도로 장기 LTV 확보 가능'},
+        {score:5,label:'CAC 높고 LTV 불확실, 마케팅 투자 대비 수익 기여 검증 필요'},
+        {score:3,label:'현지 디지털 마케팅 효율 낮고 CAC 과다, 수익 기여 근거 부족'},
+      ],
+      eth:[
+        {score:9,label:'ESG 투자(친환경·상생)가 현지 소비자 신뢰로 연결되어 수익 기여'},
+        {score:7,label:'ESG 비용 일부 발생하나 브랜드 프리미엄으로 수익성 상쇄 가능'},
+        {score:5,label:'ESG 준수 비용이 수익성에 부담, 단기 ROI 저하 우려'},
+        {score:3,label:'ESG 미이행 시 규제 과태료·평판 손실 비용이 사업 수익성 위협'},
+      ],
+    }
+  },
+  {
+    name:'리스크 수준', theory:'SWOT-WT · 시나리오',
+    rubric:{
+      strat:[
+        {score:9,label:'사드 유형 지정학 리스크 낮고, 글로벌 1.0 실패 교훈이 전략에 충분히 반영'},
+        {score:7,label:'리스크 존재하나 철수·피벗 시나리오 구체적으로 수립되어 있음'},
+        {score:5,label:'리스크 요인 다수이나 대응 전략 일부만 구체화, 보완 필요'},
+        {score:3,label:'지정학·경쟁 리스크 크고 대응 전략 미흡, 실패 재현 가능성 높음'},
+      ],
+      fin:[
+        {score:9,label:'환리스크 헤징 체계 완비, 시나리오별 손실 한도 관리 가능'},
+        {score:7,label:'주요 리스크 헤징 가능하나 복합 충격(환율+경기침체) 대응 보완 필요'},
+        {score:5,label:'헤징 수단 제한적, 외부 충격 시 재무 손실 규모 통제 어려움'},
+        {score:3,label:'재무 리스크 관리 체계 미비, 충격 발생 시 손실이 사업 존속 위협'},
+      ],
+      mkt:[
+        {score:9,label:'K-뷰티 트렌드 지속성 높고 경쟁사 역공 시 차별화 포인트 명확'},
+        {score:7,label:'트렌드 변화 리스크 있으나 제품 포트폴리오 다변화로 대응 가능'},
+        {score:5,label:'K-뷰티 트렌드 의존도 과다, 유행 변화 시 브랜드 포지셔닝 흔들릴 우려'},
+        {score:3,label:'트렌드 리스크·경쟁 리스크 복합 존재, 마케팅 대응 전략 부재'},
+      ],
+      eth:[
+        {score:9,label:'현지 법규 위반·ESG 논란 가능성 낮고 위기 대응 거버넌스 완비'},
+        {score:7,label:'일부 컴플라이언스 리스크 존재하나 사전 관리 체계로 통제 가능'},
+        {score:5,label:'현지 규제 변화·노동 이슈 등 윤리 리스크 잠재, 모니터링 강화 필요'},
+        {score:3,label:'규제 위반·ESG 리스크 가시화 가능성 높아 평판·사업 리스크 동반'},
+      ],
+    }
+  },
+  {
+    name:'브랜드·채널 실행력', theory:'STP · 4P · 디지털',
+    rubric:{
+      strat:[
+        {score:9,label:'글로벌 STP 전략 명확, 현지 포지셔닝이 전사 전략과 일관성 유지'},
+        {score:7,label:'전략 방향 맞으나 현지화 실행 로드맵 구체화 필요'},
+        {score:5,label:'타겟·포지셔닝 전략은 있으나 현지 실행 주체·역량 불분명'},
+        {score:3,label:'글로벌 전략과 현지화 전략 간 정합성 부족, 실행 가능성 낮음'},
+      ],
+      fin:[
+        {score:9,label:'채널별 투자 대비 기대 매출 명확, 디지털 마케팅 효율 계획 구체적'},
+        {score:7,label:'채널 투자 계획 있으나 실제 전환율·ROAS 검증 데이터 부족'},
+        {score:5,label:'채널 투자 규모 불명확하거나 효율 추정 근거 불충분'},
+        {score:3,label:'채널 실행 비용 과다 추정 또는 수익 기여 불명확'},
+      ],
+      mkt:[
+        {score:9,label:'틱톡·유튜브·현지 SNS 채널 전략 구체적, 인플루언서 네트워크 확보 현실적'},
+        {score:7,label:'디지털 채널 전략 방향 옳으나 현지 크리에이터·플랫폼 파트너십 구축 필요'},
+        {score:5,label:'채널 전략 개괄적 수준, 현지 콘텐츠·커뮤니티 운영 계획 미흡'},
+        {score:3,label:'현지 디지털 생태계 이해 부족, 채널 실행 계획 부재 또는 비현실적'},
+      ],
+      eth:[
+        {score:9,label:'광고·마케팅 콘텐츠의 현지 문화 감수성 체계 갖추고 사전 검토 프로세스 존재'},
+        {score:7,label:'문화적 감수성 의식하고 있으나 체계적 검토 프로세스 보완 필요'},
+        {score:5,label:'현지 문화·가치관 반영 부족, 마케팅 논란 발생 가능성 존재'},
+        {score:3,label:'현지 문화 이해 부족으로 마케팅 윤리 리스크 높음, 브랜드 이미지 훼손 우려'},
+      ],
+    }
+  },
+  {
+    name:'윤리·지속가능성', theory:'ESG · CSR · 거버넌스',
+    rubric:{
+      strat:[
+        {score:9,label:'ESG가 글로벌 전략의 핵심 축으로 통합, 장기 지속가능 성장 기반 확보'},
+        {score:7,label:'ESG 전략 존재하나 현지 적용 수준이 국내보다 낮아 개선 필요'},
+        {score:5,label:'ESG 언급은 있으나 글로벌 전략과의 유기적 연계 부족'},
+        {score:3,label:'ESG가 전략적 고려 대상에서 제외되거나 형식적 수준에 그침'},
+      ],
+      fin:[
+        {score:9,label:'ESG 투자 비용이 브랜드 프리미엄·소비자 신뢰로 재무 성과에 기여'},
+        {score:7,label:'ESG 비용 발생하나 장기적으로 리스크 절감·비용 효율로 회수 가능'},
+        {score:5,label:'ESG 비용 부담이 단기 수익성 저하, 장기 가치 입증 필요'},
+        {score:3,label:'ESG 미이행 시 규제 과태료·평판 손실 비용이 사업 수익성 위협'},
+      ],
+      mkt:[
+        {score:9,label:'친환경·다양성 마케팅이 현지 MZ 소비자 가치관과 일치, 브랜드 충성도 제고'},
+        {score:7,label:'ESG 마케팅 가능하나 현지 소비자 반응 검증 후 확대 필요'},
+        {score:5,label:'ESG 마케팅 메시지 개발 미흡, 현지화 없이 국내 콘텐츠 그대로 활용 우려'},
+        {score:3,label:'그린워싱 논란 가능성 또는 ESG 마케팅이 현지 정서와 불일치 우려'},
+      ],
+      eth:[
+        {score:9,label:'본사-현지 거버넌스 통제 체계 완비, 내부 감사·윤리 신고 채널 운영'},
+        {score:7,label:'거버넌스 기본 체계 있으나 현지 법인 자율성 확대에 따른 모니터링 강화 필요'},
+        {score:5,label:'거버넌스 구조 불완전, 현지 법인 윤리 리스크 조기 탐지 체계 미비'},
+        {score:3,label:'본사 통제력 약하고 현지 법인 독립 운영 시 윤리 기준 일관성 보장 어려움'},
+      ],
+    }
+  },
+];
+
+const ROWS = criteria.length;
+let currentScenario = 'usa';
+const store = {usa:{},sea:{},phased:{}};
+const noteStore = {usa:{strat:'',fin:'',mkt:'',eth:''},sea:{strat:'',fin:'',mkt:'',eth:''},phased:{strat:'',fin:'',mkt:'',eth:''}};
+const selClass = {9:'sel-9',7:'sel-7',5:'sel-5',3:'sel-3'};
+
+function buildTable() {
+  const tbody = document.getElementById('tbl-body');
+  tbody.innerHTML = '';
+
+  criteria.forEach((crit, r) => {
+    const tr = document.createElement('tr');
+    let html = `<td class="crit-cell"><div class="crit-name">${crit.name}</div><div class="crit-theory">${crit.theory}</div></td>`;
+    COLS.forEach(col => {
+      html += `<td class="rubric-cell"><div class="rubric-inner"><div class="scale-row">`;
+      crit.rubric[col].forEach(item => {
+        html += `<div class="scale-item" id="si-${r}-${col}-${item.score}" onclick="selectScore(${r},'${col}',${item.score})">
+          <div class="scale-radio"></div>
+          <div style="flex:1"><div class="scale-label">${item.label}</div><div class="scale-score">${item.score}점</div></div>
+        </div>`;
+      });
+      html += `</div><div class="score-display" id="sd-${r}-${col}">—</div></div></td>`;
+    });
+    html += `<td class="row-sum-cell" id="rsum-${r}">—</td>`;
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+
+  // note row
+  const noteRow = document.createElement('tr');
+  noteRow.className = 'note-row';
+  let noteHtml = `<td style="padding:8px 10px;background:var(--bg-secondary)"><div class="note-label">종합 코멘트</div></td>`;
+  COLS.forEach(col => {
+    noteHtml += `<td style="padding:8px 10px;background:var(--bg-secondary)"><div class="note-label">${colNames[col]}</div><textarea class="note" id="note-${col}" placeholder="${colNames[col]} 종합 의견..."></textarea></td>`;
+  });
+  noteHtml += `<td style="background:var(--bg-secondary)"></td>`;
+  noteRow.innerHTML = noteHtml;
+  tbody.appendChild(noteRow);
+
+  // sum row
+  const sumRow = document.createElement('tr');
+  sumRow.className = 'sum-row';
+  sumRow.innerHTML = `<td class="left">관점별 소계 (7항목 × 10점)</td>` +
+    COLS.map(col => `<td class="sum-${col}" id="col-${col}">— / 70</td>`).join('') +
+    `<td id="scenario-total">— / 280</td>`;
+  tbody.appendChild(sumRow);
+}
+
+function selectScore(row, col, score) {
+  [9,7,5,3].forEach(s => {
+    const el = document.getElementById(`si-${row}-${col}-${s}`);
+    if(el) el.className = 'scale-item' + (s===score ? ' '+selClass[score] : '');
+  });
+  store[currentScenario][`${row}-${col}`] = score;
+  const sd = document.getElementById(`sd-${row}-${col}`);
+  if(sd) sd.textContent = score + '점';
+  recalc();
+}
+
+function getStored(row, col, s) {
+  s = s || currentScenario;
+  const v = store[s][`${row}-${col}`];
+  return v !== undefined ? v : null;
+}
+
+function recalc() {
+  let total=0, allFilled=true;
+  const colSums={strat:0,fin:0,mkt:0,eth:0};
+  const colFilled={strat:true,fin:true,mkt:true,eth:true};
+
+  for(let r=0;r<ROWS;r++){
+    let rowSum=0, rowFilled=true;
+    COLS.forEach(col=>{
+      const v=getStored(r,col);
+      if(v===null){rowFilled=false;colFilled[col]=false;allFilled=false;}
+      else{rowSum+=v;colSums[col]+=v;}
+    });
+    const rs=document.getElementById(`rsum-${r}`);
+    if(rs) rs.textContent=rowFilled?rowSum+' / 40':'—';
+  }
+  COLS.forEach(col=>{
+    const el=document.getElementById(`col-${col}`);
+    if(el) el.textContent=colFilled[col]?colSums[col]+' / 70':'— / 70';
+    if(colFilled[col]) total+=colSums[col];
+  });
+  const st=document.getElementById('scenario-total');
+  if(st) st.textContent=allFilled?total+' / 280':'— / 280';
+  store[currentScenario]['__total']=allFilled?total:null;
+
+  // header
+  const hc=document.getElementById('hs-current');
+  if(hc) hc.textContent=allFilled?total:'—';
+
+  updateVerdictPanel();
+  saveToUrl();
+}
+
+function loadState(s) {
+  for(let r=0;r<ROWS;r++){
+    COLS.forEach(col=>{
+      const saved=store[s][`${r}-${col}`];
+      [9,7,5,3].forEach(sc=>{
+        const el=document.getElementById(`si-${r}-${col}-${sc}`);
+        if(el) el.className='scale-item'+(saved===sc?' '+selClass[sc]:'');
+      });
+      const sd=document.getElementById(`sd-${r}-${col}`);
+      if(sd) sd.textContent=saved!==undefined?saved+'점':'—';
+    });
+  }
+  COLS.forEach(col=>{
+    const n=document.getElementById(`note-${col}`);
+    if(n) n.value=noteStore[s][col]||'';
+  });
+}
+
+function saveNotes() {
+  COLS.forEach(col=>{
+    const n=document.getElementById(`note-${col}`);
+    if(n) noteStore[currentScenario][col]=n.value;
+  });
+}
+
+function switchScenario(sc) {
+  saveNotes();
+  currentScenario=sc;
+  document.querySelectorAll('.stab').forEach((t,i)=>t.classList.toggle('active',scenarios[i]===sc));
+  scenarios.forEach(s=>{ document.getElementById(`desc-${s}`).style.display=s===sc?'':'none'; });
+  loadState(sc);
+  recalc();
+}
+
+function getScenarioTotal(s) {
+  let t=0,ok=true;
+  for(let r=0;r<ROWS;r++) COLS.forEach(col=>{ const v=store[s][`${r}-${col}`]; if(v===undefined)ok=false; else t+=v; });
+  return ok?t:null;
+}
+
+function updateVerdictPanel() {
+  const totals={};
+  scenarios.forEach(s=>{ totals[s]=s===currentScenario?store[s]['__total']:getScenarioTotal(s); });
+  const vals=Object.values(totals).filter(v=>v!==null);
+  const maxVal=vals.length?Math.max(...vals):null;
+  const colors={usa:'#378ADD',sea:'#639922',phased:'#BA7517'};
+  scenarios.forEach(s=>{
+    const v=totals[s];
+    document.getElementById(`vs-${s}`).textContent=v!==null?v:'—';
+    document.getElementById(`vb-${s}`).style.width=v!==null?(v/280*100)+'%':'0%';
+    document.getElementById(`vb-${s}`).style.background=colors[s];
+    document.getElementById(`vc-${s}`).classList.toggle('highlight',v!==null&&v===maxVal&&vals.length===3);
+    document.getElementById(`vbadge-${s}`).innerHTML=(v!==null&&v===maxVal&&vals.length===3)?'<span class="rec-badge">최고점 시나리오</span>':'';
+    const hs=document.getElementById(`hs-${s}`);
+    if(hs) hs.textContent=v!==null?v:'—';
+  });
+}
+
+/* ── URL state persistence ── */
+function saveToUrl() {
+  saveNotes();
+  const data={scores:{},notes:noteStore};
+  scenarios.forEach(s=>{
+    data.scores[s]={};
+    for(let r=0;r<ROWS;r++) COLS.forEach(col=>{
+      const v=store[s][`${r}-${col}`];
+      if(v!==undefined) data.scores[s][`${r}-${col}`]=v;
+    });
+  });
+  try {
+    const encoded=btoa(encodeURIComponent(JSON.stringify(data)));
+    const url=new URL(window.location.href);
+    url.searchParams.set('d',encoded);
+    window.history.replaceState(null,'',url.toString());
+  } catch(e){}
+}
+
+function loadFromUrl() {
+  try {
+    const url=new URL(window.location.href);
+    const encoded=url.searchParams.get('d');
+    if(!encoded) return;
+    const data=JSON.parse(decodeURIComponent(atob(encoded)));
+    if(data.scores) {
+      scenarios.forEach(s=>{
+        if(data.scores[s]) {
+          for(const [k,v] of Object.entries(data.scores[s])) store[s][k]=v;
+        }
+      });
+    }
+    if(data.notes) {
+      scenarios.forEach(s=>{ if(data.notes[s]) noteStore[s]={...noteStore[s],...data.notes[s]}; });
+    }
+  } catch(e){}
+}
+
+function copyLink() {
+  saveToUrl();
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    alert('링크가 클립보드에 복사되었습니다.\n이 링크를 공유하면 현재 입력한 점수와 코멘트가 함께 전달됩니다.');
+  }).catch(()=>{
+    prompt('아래 링크를 복사하세요:', window.location.href);
+  });
+}
+
+function printPage() { window.print(); }
+
+function resetCurrent() {
+  const s=currentScenario;
+  for(const k in store[s]) if(!k.startsWith('__')) delete store[s][k];
+  store[s]['__total']=null;
+  noteStore[s]={strat:'',fin:'',mkt:'',eth:''};
+  loadState(s);
+  COLS.forEach(col=>{ const el=document.getElementById(`col-${col}`); if(el) el.textContent='— / 70'; });
+  for(let r=0;r<ROWS;r++){ const rs=document.getElementById(`rsum-${r}`); if(rs) rs.textContent='—'; }
+  const st=document.getElementById('scenario-total'); if(st) st.textContent='— / 280';
+  updateVerdictPanel();
+  saveToUrl();
+}
+
+function resetAll() {
+  scenarios.forEach(s=>{ store[s]={}; noteStore[s]={strat:'',fin:'',mkt:'',eth:''}; });
+  loadState(currentScenario);
+  COLS.forEach(col=>{ const el=document.getElementById(`col-${col}`); if(el) el.textContent='— / 70'; });
+  for(let r=0;r<ROWS;r++){ const rs=document.getElementById(`rsum-${r}`); if(rs) rs.textContent='—'; }
+  const st=document.getElementById('scenario-total'); if(st) st.textContent='— / 280';
+  updateVerdictPanel();
+  saveToUrl();
+}
+
+// init
+buildTable();
+loadFromUrl();
+loadState(currentScenario);
+recalc();
+</script>
+</body>
+</html>
